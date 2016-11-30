@@ -5,9 +5,9 @@ import * as actions from '../actions/action_index';
 class todoTable extends Component {
   showTodos() {
     console.log('this props: ', this.props);
-    const prop = this.props.state.todos;
+    const prop = this.props.state.todos.item;
 
-    if(!prop.hasOwnProperty('completed')) {
+    if(!this.props.state.todos.hasOwnProperty('item')) {
       return (
         <h1 className="no-todos">You have no todo&apos;s at the moment.</h1>
       )

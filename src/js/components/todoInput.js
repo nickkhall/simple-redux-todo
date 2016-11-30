@@ -6,21 +6,22 @@ import { bindActionCreators } from 'redux';
 class todoInput extends Component {
 
   insertTodo(e) {
-    if(e.target.value !== '') {
-      this.props.addTodo(e.target.value);
-      e.target.value = '';
+    e.preventDefault();
+    const { value } = this.input;
+    if(value !== '') {
+      this.props.addTodo(value);
+      this.input.value = '';
+    } else {
+      alert('You must enter a todo!');
     }
   }
 
   render() {
-    const todoInput = this.refs.todoValue;
-    console.log('todoInput: ', todoInput);
-    const todoValue = todoInput.value;
     return (
       <section className="todo-input">
-        <form>
-          <input ref="todoValue" type="text" placeholder="Enter a todo..." />
-          <button className="add-btn" type="submit" onClick={this.insertTodo()}>Add</button>
+        <form onSubmit={this.insertTodo.bind(this)}>
+          <input type="text" ref={(inp) => this.input = inp} placeholder="Enter a todo..." />
+          <button className="add-btn" type="submit">Add</button>
         </form>
       </section>
     )
