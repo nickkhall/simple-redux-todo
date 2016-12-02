@@ -99,6 +99,7 @@ input, select {
 // Color Variables
 $black:#000;
 $blue: #0288D1;
+$completed: #424242;
 $grey: #E0E0E0;
 $lightBlue: #90CAF9;
 $lightGrey:#EEEEEE;
@@ -185,6 +186,11 @@ header {
             border-radius:50%;
             padding:5px;
           }
+      }
+      .completedLi {
+        background:$completed;
+        color:$white;
+        text-decoration:line-through;
       }
   }
 }

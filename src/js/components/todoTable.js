@@ -5,19 +5,21 @@ import * as actions from '../actions/action_index';
 class todoTable extends Component {
   showTodos() {
     console.log('this props: ', this.props);
-    const prop = this.props.state.todos.item;
+    const { items } = this.props.state.todos;
 
-    if(!this.props.state.todos.hasOwnProperty('item')) {
+    if(items.length < 1) {
       return (
         <h1 className="no-todos">You have no todo&apos;s at the moment.</h1>
       )
     } else {
-        return (
-          <li className="todo-li" key={prop._id}>
+        return items.map( prop =>
+          <li onClick={() => this.props.toggleTodo(prop.id)} className={"todo-li" + (
+            prop.completed ? ' completedLi' : ''
+          )} key={prop.id}>
             { prop.text }
-            <img src="../../src/styles/imgs/white-trash-can.svg" className="trash-can" />
+            <img src="../../src/styles/imgs/white-trash-can.svg" className="trash-can" onClick={() => this.props.deleteTodo(prop.id)} />
           </li>
-        )
+        );
       }
   }
 
