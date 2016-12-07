@@ -13,22 +13,51 @@ class todoTable extends Component {
       )
     } else {
         return items.map( prop =>
-          <li onClick={() => this.props.toggleTodo(prop.id)} className={"todo-li" + (
-            prop.completed ? ' completedLi' : ''
-          )} key={prop.id}>
+          <li
+            onClick={() => this.props.toggleTodo(prop.id)}
+            className={"todo-li" + (prop.completed ? ' completedLi' : '')}
+            key={prop.id}
+          >  
             { prop.text }
+            <div className="status-container" onClick={ () => this.props.toggleInProgressTodo(prop.id) }>
+              <img src="../../src/styles/imgs/in-progress-white.svg"></img>
+              <span>In Progress</span>
+            </div>
             <img src="../../src/styles/imgs/white-trash-can.svg" className="trash-can" onClick={() => this.props.deleteTodo(prop.id)} />
           </li>
         );
       }
   }
 
+  sortBy() {
+    var buttonClicked = !buttonClicked;
+
+    return buttonClicked;
+  }
+
   render() {
+    let buttonClicked = false;
+    let { items } = this.props.state.todos;
+
     return (
       <section className="todo-container">
         <ul>
           { this.showTodos() }
         </ul>
+        <aside className={"categories-section" + (
+          this.props.state.todos.items.length > 0 ? ' display' : ''
+        )}>
+          <div className="categories-container">
+            <ul className="categories">
+              Sort by:
+              <li className={ "category" + (buttonClicked ? ' active' : '') } onClick={() => this.props.sortCompletedTodos(this.props.items)}>Completed</li>
+              <li className={ "category" + (buttonClicked ? ' active' : '') }>In Progress</li>
+              <li className={ "category" + (buttonClicked ? ' active' : '') }>Not Started</li>
+              <li className={ "category not-started" + (buttonClicked ? ' active' : '') }>Not Started to Completed</li>
+              <li className={ "category not-started" + (buttonClicked ? ' active' : '') }>Completed to Not Started</li>
+            </ul>
+          </div>
+        </aside>
       </section>
     )
   }
